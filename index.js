@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = require("./routes/auth.routes");
-const path = require("path");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -12,6 +12,13 @@ const app = express();
 
 app.use(express.json({ extended: true }));
 app.use("/auth", router);
+// app.use(
+//   cors({
+//     origin: process.env.CLIENT_URL,
+//     "Access-Control-Allow-Origin": process.env.CLIENT_URL
+//   })
+// );
+app.use(cors());
 
 const start = async () => {
   try {

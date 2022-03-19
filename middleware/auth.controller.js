@@ -73,7 +73,18 @@ class authController {
   async getUser(req, res) {
     try {
       const users = await User.find();
+      res.header("Access-Control-Allow-Origin", "*");
       res.json(users);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getCurrentUser(req, res) {
+    try {
+      const { id } = req.user;
+      const self = await User.findById(id);
+      res.json(self);
     } catch (error) {
       console.log(error);
     }
