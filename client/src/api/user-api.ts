@@ -22,7 +22,7 @@ const UserApi = {
       putStorage(`role`, user.roles[0]);
       console.log(user);
     } catch (error) {
-      putStorage(`role`, `guest`);
+      putStorage(`role`, `GUEST`);
       console.log(error);
     }
   },
