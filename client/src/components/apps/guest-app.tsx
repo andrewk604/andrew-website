@@ -1,6 +1,8 @@
 /* eslint-disable */
 
-let GuestApp = () => {};
+let GuestApp = () => {
+  return <>Guest app</>;
+};
 
 export default GuestApp;
 

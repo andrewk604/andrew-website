@@ -1,6 +1,8 @@
 /* eslint-disable */
 
-let UserApp = () => {};
+let UserApp = () => {
+  <>User app</>;
+};
 
 export default UserApp;
 

@@ -11,14 +11,13 @@ const mongoUri = process.env.mongoUri;
 const app = express();
 
 app.use(express.json({ extended: true }));
-app.use("/auth", router);
-// app.use(
-//   cors({
-//     origin: process.env.CLIENT_URL,
-//     "Access-Control-Allow-Origin": process.env.CLIENT_URL
-//   })
-// );
-app.use(cors());
+app.use(
+  "/auth",
+  cors({
+    origin: process.env.CLIENT_URL
+  }),
+  router
+);
 
 const start = async () => {
   try {

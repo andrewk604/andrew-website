@@ -1,12 +1,9 @@
 import "./styles.css";
 import UserApi from "./api/user-api";
+import RouterApp from "./components/apps/router-app.tsx";
 
 let App = () => {
-  return (
-    // <div>
-    <button onClick={UserApi.getCurrentUser}>Get Current User Test</button>
-    // </div>
-  );
+  return <RouterApp />;
 };
 
 export default App;

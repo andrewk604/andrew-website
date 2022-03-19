@@ -1,6 +1,8 @@
 /* eslint-disable */
 
-let AdminApp = () => {};
+let AdminApp = () => {
+  return <>Admin app</>;
+};
 
 export default AdminApp;
 
