@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { API_ENDPOINT } from "../constants/config";
-import { putStorage, getStorage } from "../hooks/useStorage.tsx";
+import { putStorage, getStorage } from "../hooks/useStorage.js";
 
 type login_data = {
   username: string;
@@ -15,7 +15,7 @@ const UserApi = {
       const user = (
         await axios.get(`${API_ENDPOINT}/auth/self`, {
           headers: {
-            Authorization: `Bearer ${getStorage(`auth_token`)}`
+            Authorization: `Bearer ${getStorage(`auth_token`) || ""}`
           }
         })
       ).data;
