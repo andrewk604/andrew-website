@@ -17,7 +17,9 @@
     "mongoose": "6.2.7",
     "nodemon": "2.0.15",
     "npx": "10.2.2",
-    "path": "0.12.7"
+    "path": "0.12.7",
+    "react-router-dom": "6.2.2",
+    "styled-components": "5.3.3"
   },
   "scripts": {
     "start": "node index.js",

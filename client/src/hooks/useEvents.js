@@ -1,11 +1,11 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
 
-export let useEventListener = (key, handler, options) => {
+export let useEventListener = (key, handler) => {
   useEffect(() => {
-    window.addEventListener(key, handler, options);
+    window.addEventListener(key, handler);
     return () => {
-      window.removeEventListener(key, handler, options);
+      window.removeEventListener(key, handler);
     };
   });
 };

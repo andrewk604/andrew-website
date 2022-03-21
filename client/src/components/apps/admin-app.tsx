@@ -4,11 +4,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { Frame } from "../templates/styled-templates";
+import Header from "../templates/header";
 
-let GuestApp = (props: any) => {
+let AdminApp = (props: any) => {
   return (
     <Wrapper>
-      <Title>Guest guest app</Title>
+      <Header />
+      <Title>Admin admin app</Title>
     </Wrapper>
   );
 };
@@ -16,6 +18,6 @@ let GuestApp = (props: any) => {
 const Wrapper = styled(Frame)``;
 const Title = styled(Frame)``;
 
-export default GuestApp;
+export default AdminApp;
 
 /* eslint-enable */

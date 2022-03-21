@@ -9,6 +9,11 @@ type login_data = {
   password: string;
 };
 
+type register_data = {
+  username: string;
+  password: string;
+};
+
 const UserApi = {
   async getCurrentUser() {
     try {
@@ -20,9 +25,11 @@ const UserApi = {
         })
       ).data;
       putStorage(`role`, user.roles[0]);
+      putStorage(`initialized`, true);
       console.log(user);
     } catch (error) {
       putStorage(`role`, `GUEST`);
+      putStorage(`initialized`, false);
       console.log(error);
     }
   },
@@ -37,10 +44,30 @@ const UserApi = {
       ).data;
       console.log(token);
       putStorage(`auth_token`, token.token);
+      putStorage(`initialized`, true);
       const user = await this.getCurrentUser();
       return user;
     } catch (error) {
       console.log(error);
+    }
+  },
+
+  async register(register_data: register_data) {
+    try {
+      const response = (
+        await axios.post(`${API_ENDPOINT}/auth/register`, {
+          username: register_data.username,
+          password: register_data.password
+        })
+      ).data;
+      await this.login({
+        username: register_data.username,
+        password: register_data.password
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return error.message;
     }
   }
 };

@@ -5,47 +5,47 @@ import UserApi from "../../api/user-api";
 import AdminApp from "./admin-app";
 import GuestApp from "./guest-app";
 import UserApp from "./user-app";
+import Alerts from "../templates/alerts";
+
+import LoginPage from "../pages/loginPage";
+import SignupPage from "../pages/signupPage";
+
 import { getStorage, putStorage } from "../../hooks/useStorage";
 
 import styled from "styled-components";
-import { Frame } from "../../components/templates/styled-templates";
+import { Frame } from "../templates/styled-templates";
 
 let RouterApp = () => {
   let [userRole, setUserRole] = useState(getStorage(`role`));
-  let [route, setRoute] = useState(GuestApp);
 
-  useEffect(async () => {
-    await UserApi.getCurrentUser();
+  useEffect(() => {
+    const getUser = async () => {
+      await UserApi.getCurrentUser();
+    };
+    getUser();
   }, []);
 
-  window.addEventListener(`update storage`, () => {
-    setUserRole(getStorage(`role`));
+  window.addEventListener(`storage`, async (event) => {
+    if (event.key == "auth_token" || event.key == "role") {
+      await UserApi.getCurrentUser();
+      setUserRole(getStorage(`role`));
+    }
   });
 
-  let route: any = GuestApp;
-
-  switch (userRole) {
-    case "GUEST":
-      setRoute(GuestApp);
-      break;
-    case "USER":
-      setRoute(UserApp);
-      break;
-    case "ADMIN":
-      setRoute(AdminApp);
-      break;
-    default:
-      setRoute(GuestApp);
-      break;
-  }
-
-  console.log(route);
+  let route = {
+    USER: <UserApp />,
+    GUEST: <GuestApp />,
+    ADMIN: <AdminApp />
+  }?.[userRole ?? `GUEST`];
 
   return (
     <BrowserRouter>
       <Wrapper>
+        <Alerts />
         <Routes>
           <Route path="/" element={route} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>
@@ -58,7 +58,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background: blue;
+  background: #fff;
 `;
 
 export default RouterApp;
