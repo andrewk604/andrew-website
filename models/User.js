@@ -15,7 +15,10 @@ const User = new Schema({
       type: String,
       ref: "Role"
     }
-  ]
+  ],
+  biography: {
+    type: String
+  }
 });
 
 module.exports = model("User", User);

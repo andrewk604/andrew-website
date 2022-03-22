@@ -57,12 +57,10 @@ let LoginPage = () => {
           extra={`width: 200px; height: 50px;`}
           onClick={async (e) => {
             if (loginCheck()) {
-              console.log(`before req`);
               await UserApi.login({
                 username: username,
                 password: password
               });
-              console.log(getStorage(`initialized`));
               if (getStorage(`initialized`) == `true`) {
                 navigate("/");
               }

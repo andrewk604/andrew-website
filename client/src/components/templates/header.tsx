@@ -13,72 +13,72 @@ let Header = (props) => {
   let [tab, setTab] = useState("home");
   let [role, setRole] = useState(getStorage(`role`));
 
-  let path = useLocation().pathname.split("/").slice(1);
+  let path = useLocation().pathname.split("/").slice(1)[0];
 
   const LinkProperties = {
     textDecoration: `none`,
     color: `black`
   };
 
-  const HeaderTabs = [
-    {
-      name: `HomeTab`,
-      title: "Home",
-      to: "/"
-    },
-    {
-      name: `LoginTab`,
-      title: "Log in",
-      to: "/login",
-      role: "GUEST"
-    },
-    {
-      name: `RegisterTab`,
-      title: "Sign up",
-      to: "/singup",
-      role: "GUEST"
-    }
-  ];
-
   let HeaderItems = [];
 
   switch (role) {
-    case "GUEST":
+    case `"GUEST"`:
       HeaderItems = [
         {
           name: `HomeTab`,
           title: "Home",
-          to: "/"
+          to: ""
         },
         {
           name: `LoginTab`,
           title: "Log in",
-          to: "/login",
+          to: "login",
           role: "GUEST"
         },
         {
           name: `RegisterTab`,
           title: "Sign up",
-          to: "/signup",
+          to: "signup",
           role: "GUEST"
         }
       ];
       break;
-    case "USER":
+    case `"USER"`:
       HeaderItems = [
         {
           name: `HomeTab`,
           title: "Home",
-          to: "/"
+          to: ""
+        },
+        {
+          name: "ProfileTab",
+          title: "Profile",
+          to: "profile"
+        },
+        {
+          name: "PostTab",
+          title: "New post",
+          to: ""
         }
       ];
       break;
-    case "ADMIN":
+    case `"ADMIN"`:
       HeaderItems = [
         {
           name: `HomeTab`,
           title: "Home",
-          to: "/"
+          to: ""
+        },
+        {
+          name: "ProfileTab",
+          title: "Profile",
+          to: ""
+        },
+        {
+          name: "PostTab",
+          title: "New post",
+          to: ""
         }
       ];
       break;
@@ -87,18 +87,18 @@ let Header = (props) => {
         {
           name: `HomeTab`,
           title: "Home",
-          to: "/"
+          to: ""
         },
         {
           name: `LoginTab`,
           title: "Log in",
-          to: "/login",
+          to: "login",
           role: "GUEST"
         },
         {
           name: `RegisterTab`,
           title: "Sign up",
-          to: "/signup",
+          to: "signup",
           role: "GUEST"
         }
       ];
@@ -121,7 +121,12 @@ let Header = (props) => {
             {HeaderItems.map((i, id) => {
               return (
                 <HeaderTab key={i.name}>
-                  <StyledLink to={i.to}>{i.title}</StyledLink>
+                  <StyledLink
+                    to={"/" + i.to}
+                    extra={i.to !== path ? `color: #d4d4d4` : `color: black;`}
+                  >
+                    {i.title}
+                  </StyledLink>
                 </HeaderTab>
               );
             })}
@@ -150,13 +155,13 @@ const Logo = styled(Frame)`
 
 const Tabs = styled(Frame)`
   height: 100%;
-  width: 200px;
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
 `;
 
 const HeaderTab = styled(Frame)`
+  width: 80px;
   :hover {
     cursor: pointer;
   }

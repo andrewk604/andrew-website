@@ -26,7 +26,7 @@ const UserApi = {
       ).data;
       putStorage(`role`, user.roles[0]);
       putStorage(`initialized`, true);
-      console.log(user);
+      putStorage(`user`, user);
     } catch (error) {
       putStorage(`role`, `GUEST`);
       putStorage(`initialized`, false);
@@ -69,6 +69,14 @@ const UserApi = {
       console.log(error);
       return error.message;
     }
+  },
+
+  async logout() {
+    putStorage(`auth_token`, "");
+    putStorage(`user`, "");
+    putStorage(`initialized`, false);
+    putStorage(`role`, `GUEST`);
+    this.getCurrentUser();
   }
 };
 

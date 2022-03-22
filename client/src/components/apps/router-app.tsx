@@ -9,14 +9,16 @@ import Alerts from "../templates/alerts";
 
 import LoginPage from "../pages/loginPage";
 import SignupPage from "../pages/signupPage";
+import ProfilePage from "../pages/profilePage";
 
 import { getStorage, putStorage } from "../../hooks/useStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 import styled from "styled-components";
 import { Frame } from "../templates/styled-templates";
 
 let RouterApp = () => {
-  let [userRole, setUserRole] = useState(getStorage(`role`));
+  const [userRole, setUserRole] = useLocalStorage(`role`, `GUEST`);
 
   useEffect(() => {
     const getUser = async () => {
@@ -28,7 +30,6 @@ let RouterApp = () => {
   window.addEventListener(`storage`, async (event) => {
     if (event.key == "auth_token" || event.key == "role") {
       await UserApi.getCurrentUser();
-      setUserRole(getStorage(`role`));
     }
   });
 
@@ -46,6 +47,7 @@ let RouterApp = () => {
           <Route path="/" element={route} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>

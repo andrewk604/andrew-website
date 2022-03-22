@@ -98,4 +98,5 @@ export const StyledLink = styled(Link).attrs((props) => ({
 }))`
   text-decoration: none;
   color: black;
+  ${({ extra }) => extra}
 `;
